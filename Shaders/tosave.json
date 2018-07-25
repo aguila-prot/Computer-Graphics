@@ -1,0 +1,54 @@
+{
+    "window": {
+        "width": "800",
+        "height": "800"
+    },
+    "ellipsoid": {
+        "rotation": {
+            "x": "2725",
+            "y": "1065",
+            "z": "1620"
+        },
+        "translation": {
+            "x": "0",
+            "y": "0",
+            "z": "0"
+        },
+        "sizes": {
+            "scale": "4.85000038",
+            "x_radius": "0.200000003",
+            "y_radius": "0.200000003",
+            "z_radius": "0.400000006"
+        },
+        "splitting": {
+            "count_of_width_segments": "300",
+            "count_of_height_segments": "300"
+        },
+        "mode_polygon": "0",
+        "has_move": "0",
+        "has_cube": "0",
+        "has_texture": "1",
+        "speed": {
+            "x": "3",
+            "y": "2",
+            "z": "1",
+            "vx": "1",
+            "vy": "1",
+            "vz": "1"
+        }
+    },
+    "light": {
+        "rotation": {
+            "x": "0",
+            "y": "0",
+            "z": "0"
+        },
+        "translation": {
+            "x": "0",
+            "y": "2.14999914",
+            "z": "-2.14999914"
+        },
+        "spot_exponent": "0",
+        "spot_cutoff": "30"
+    }
+}

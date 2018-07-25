@@ -1,0 +1,84 @@
+#include "JsonConfig.h"
+#include <iostream>
+using namespace std;
+JsonConfig::JsonConfig(string path_to_file){
+    std::ifstream file;
+    file.open(path_to_file);
+    std::stringstream stream;
+    stream << file.rdbuf();
+    file.close();
+    boost::property_tree::ptree json_tree;
+    boost::property_tree::read_json(stream, json_tree);
+    width = json_tree.get<int>("window.width");
+    height = json_tree.get<int>("window.height");
+    dAngle = json_tree.get<GLfloat>("ellipsoid.rotation.x");
+    rAngle = json_tree.get<GLfloat>("ellipsoid.rotation.y");
+    uAngle = json_tree.get<GLfloat>("ellipsoid.rotation.z");
+    d_light_angle = json_tree.get<GLfloat>("light.rotation.x");
+    r_light_angle = json_tree.get<GLfloat>("light.rotation.y");
+    u_light_angle = json_tree.get<GLfloat>("light.rotation.z");
+    x_centre = json_tree.get<GLfloat>("ellipsoid.translation.x");
+    y_centre = json_tree.get<GLfloat>("ellipsoid.translation.y");
+    z_centre = json_tree.get<GLfloat>("ellipsoid.translation.z");
+    scaler = json_tree.get<GLfloat>("ellipsoid.sizes.scale");
+    x_radius = json_tree.get<GLfloat>("ellipsoid.sizes.x_radius");
+    y_radius = json_tree.get<GLfloat>("ellipsoid.sizes.y_radius");
+    z_radius = json_tree.get<GLfloat>("ellipsoid.sizes.z_radius");
+    light_x_centre = json_tree.get<GLfloat>("light.translation.x");
+    light_y_centre = json_tree.get<GLfloat>("light.translation.y");
+    light_z_centre = json_tree.get<GLfloat>("light.translation.z");
+    intensive = json_tree.get<GLfloat>("light.spot_exponent");
+    rad = json_tree.get<GLfloat>("light.spot_cutoff");
+    count_of_width_segments = json_tree.get<unsigned int>("ellipsoid.splitting.count_of_width_segments");
+    count_of_height_segments = json_tree.get<unsigned int>("ellipsoid.splitting.count_of_height_segments");
+    modePolygon = json_tree.get<int>("ellipsoid.mode_polygon") == 1;
+    move_flag = json_tree.get<int>("ellipsoid.has_move") == 1;
+    draw_cube = json_tree.get<int>("ellipsoid.has_cube") == 1;
+    texture = json_tree.get<int>("ellipsoid.has_texture") == 1;
+    speed_x = json_tree.get<GLfloat>("ellipsoid.speed.x");
+    speed_y = json_tree.get<GLfloat>("ellipsoid.speed.y");
+    speed_z = json_tree.get<GLfloat>("ellipsoid.speed.z");
+    vx = json_tree.get<GLfloat>("ellipsoid.speed.vx");
+    vy = json_tree.get<GLfloat>("ellipsoid.speed.vy");
+    vz = json_tree.get<GLfloat>("ellipsoid.speed.vz");
+    remake_flag = false;
+}
+
+void JsonConfig::save(string path_to_file) {
+    boost::property_tree::ptree json_tree;
+    json_tree.put("window.width", width);
+    json_tree.put("window.height", height);
+    json_tree.put("ellipsoid.rotation.x", dAngle);
+    json_tree.put("ellipsoid.rotation.y", rAngle);
+    json_tree.put("ellipsoid.rotation.z", uAngle);
+    json_tree.put("light.rotation.x", d_light_angle);
+    json_tree.put("light.rotation.y", r_light_angle);
+    json_tree.put("light.rotation.z", u_light_angle);
+    json_tree.put("ellipsoid.translation.x", x_centre);
+    json_tree.put("ellipsoid.translation.y", y_centre);
+    json_tree.put("ellipsoid.translation.z", z_centre);
+    json_tree.put("ellipsoid.sizes.scale", scaler);
+    json_tree.put("ellipsoid.sizes.x_radius", x_radius);
+    json_tree.put("ellipsoid.sizes.y_radius", y_radius);
+    json_tree.put("ellipsoid.sizes.z_radius", z_radius);
+    json_tree.put("light.translation.x", light_x_centre);
+    json_tree.put("light.translation.y", light_y_centre);
+    json_tree.put("light.translation.z", light_z_centre);
+    json_tree.put("light.spot_exponent", intensive);
+    json_tree.put("light.spot_cutoff", rad);
+    json_tree.put("ellipsoid.splitting.count_of_width_segments", count_of_width_segments);
+    json_tree.put("ellipsoid.splitting.count_of_height_segments", count_of_height_segments);
+    json_tree.put("ellipsoid.mode_polygon", modePolygon ? 1 : 0);
+    json_tree.put("ellipsoid.has_move", move_flag ? 1 : 0);
+    json_tree.put("ellipsoid.has_cube", draw_cube ? 1 : 0);
+    json_tree.put("ellipsoid.has_texture", texture ? 1 : 0);
+    json_tree.put("ellipsoid.speed.x", speed_x);
+    json_tree.put("ellipsoid.speed.y", speed_y);
+    json_tree.put("ellipsoid.speed.z", speed_z);
+    json_tree.put("ellipsoid.speed.vx", vx);
+    json_tree.put("ellipsoid.speed.vy", vy);
+    json_tree.put("ellipsoid.speed.vz", vz);
+    std::ofstream file(path_to_file);
+    boost::property_tree::write_json(file, json_tree);
+    file.close();
+}

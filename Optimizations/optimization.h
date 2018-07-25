@@ -1,0 +1,6 @@
+#define ARRAY_OF_VERTEXES
+#define ANIMATION
+#define DISPLAY_LIST
+#define MAXIMAL_SPLIT 200
+#define TEXTURE
+#define LIGHT
